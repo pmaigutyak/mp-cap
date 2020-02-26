@@ -2965,3 +2965,48 @@ body.change-form.cap_form_submit_on_right .edit-row > div.col-right { width: 22%
 @media (max-width: 991px) { body.change-form.cap_form_submit_on_right .edit-row > div.col-right { width: auto; -webkit-box-flex: 1; -ms-flex: 1; flex: 1; -ms-flex-preferred-size: 100%; flex-basis: 100%; } }
 
 table#change-history thead > tr th { padding: 0.7rem 0.8rem !important; }
+
+
+/* Refactor */
+
+.col-multi-fields .multi-field {
+    flex-basis: 25rem;
+    padding-right: 3rem;
+}
+
+fieldset input[type=number],
+fieldset input[type=date],
+fieldset input.vIntegerField,
+fieldset input.vIntegerField,
+fieldset input.vDateField,
+fieldset input.vTimeField,
+fieldset input.vForeignKeyRawIdAdminField {
+    width: 100%;
+}
+
+.cap-form .form-group label {
+    font-weight: 500;
+}
+
+body.cap_layout_vertical #cap-nav > ul > li > a {
+    color: #fff;
+}
+
+body.cap_layout_vertical #cap-nav > ul > li > ul > li a {
+    color: #333;
+}
+
+.multi-field input[type=checkbox] {
+    float: left;
+    width: 25px;
+    height: 25px;
+}
+
+#container #content {
+    background-color: #f5f5f5;
+}
+
+.submit-row {
+    padding-top: 10px;
+}
+
