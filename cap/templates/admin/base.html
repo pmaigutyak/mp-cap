@@ -1,0 +1,150 @@
+{% extends 'admin/base.html' %}
+{% load i18n static cap_tags %}
+
+{% block stylesheet %}{% static "cap/css/cap.css" %}{% endblock %}
+
+{% block extrastyle %}
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+    <link href='{% static "cap/css/font-awesome.min.css" %}' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super|cap_body_class:request }}{% endblock %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">
+            {{ site_header|default:_('Django administration') }}
+            <span class="header-label">{% trans 'Admin' %}</span></a>
+    </h1>
+{% endblock %}
+
+{% block pretitle %}
+<div class="content-wrap">
+    {% block messages %}
+        {% if messages %}
+            <ul class="messagelist">{% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+            {% endfor %}</ul>
+        {% endif %}
+    {% endblock messages %}
+{% endblock %}
+
+{% block sidebar %}
+    </div> <!-- Close content-wrap -->
+{% endblock %}
+
+{% block usertools %}
+    {% if has_permission %}
+        <div id="user-tools" class="cap-user-tools">
+            {% block welcome-msg %}
+                <span class="welcome">
+                Welcome,
+                <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+            </span>
+            {% endblock %}
+            <div class="user-links">
+            {% block userlinks %}
+                {% if site_url %}
+                    <a href="{{ site_url }}" class="icon-link view-site-link" data-title="{% trans 'View site' %}">{% trans 'View site' %}</a>
+                    <span class="separator">/</span>
+
+                {% endif %}
+                {% if user.is_active and user.is_staff %}
+                    {% url 'django-admindocs-docroot' as docsroot %}
+                    {% if docsroot %}
+                        <a href="{{ docsroot }}" class="icon-link documentation-link" data-title="{% trans 'Documentation' %}">{% trans 'Documentation' %}</a>
+                        <span class="separator">/</span>
+                    {% endif %}
+                {% endif %}
+                {% if user.has_usable_password %}
+                    <a href="{% url 'admin:password_change' %}" class="icon-link change-password-link" data-title="{% trans 'Change password' %}">{% trans 'Change password' %}</a>
+                    <span class="separator">/</span>
+                {% endif %}
+                <a href="{% url 'admin:logout' %}" class="icon-link logout-link" data-title="{% trans 'Log out' %}">{% trans 'Log out' %}</a>
+            {% endblock %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block nav-global %}
+    {% include 'cap/menu.html' %}
+{% endblock %}
+
+{% block footer %}
+{#    </div> <!-- Put footer outside #container -->#}
+    {% if not is_popup %}
+        <div id="footer">
+        <footer class="footer">
+            <div class="container-fluid">
+                {% block footer_content %}
+                    <div class="row">
+
+                        <div class="col-xs-12 col-sm-3 footer-links">
+                            {% block footer_links %}
+                                <a href="http://djangocap.com/support/" target="_blank">Support</a>
+                                <a href="http://djangocap.com/pricing/" target="_blank">Licence</a>
+                                <a href="http://github.com/darklow/django-cap/issues" target="_blank">Report a bug</a>
+                            {% endblock %}
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 text-sm-center footer-copyright">
+                            {% block copyright %}
+                                Copyright &copy;
+                                <span class="hidden-md-down">2013-</span>{% now "Y" %} DjangoCap.com
+                                <br>Developed by
+                                <a href="http://djangocap.com" target="_blank">DjangoCap.com</a>
+                            {% endblock %}
+                        </div>
+
+                        <div class="col-xs-12 col-sm-3 text-sm-right footer-version">
+                            {% block footer_branding %}
+                                {% with admin_name=site_header|default:_('Django administration') django_version='django_version'|cap_conf:request %}
+                                    {{ admin_name }}
+                                    {% if admin_name == 'Django Cap' %}
+                                        <span style="font-size: 12px">
+                                            {{ 'version'|cap_conf:request }}<br/>
+                                            Django {{ django_version }}
+                                        </span>
+                                    {% endif %}
+                                {% endwith %}
+                            {% endblock %}
+                        </div>
+
+                    </div>
+                {% endblock %}
+            </div>
+        </footer>
+    {% endif %}
+
+{#    {{ block.super }}#}
+    <script src="{% static "cap/js/cap.js" %}"></script>
+    {% if cl.formset or action_form and 'toggle_changelist_top_actions'|cap_conf:request %}
+        <script type="text/javascript">
+            Cap.ListActionsToggle.init();
+        </script>
+    {% elif adminform %}
+        <script type="text/javascript">
+
+            Cap.$("#{{ opts.model_name }}_form").capFormDebounce();
+
+            {% if 'form_submit_on_right'|cap_conf:request %}
+                Cap.FixedBar.init();
+            {% endif %}
+
+            {% if adminform.model_admin.cap_form_tabs %}
+                Cap.$(function () {
+                    Cap.$('#cap_form_tabs').capFormTabs();
+                });
+            {% endif %}
+
+{#            {% if 'layout'|cap_conf:request.current_app == 'vertical' %}#}
+{#                Cap.$('#content').prepend(Cap.$('.breadcrumbs'));#}
+{#            {% endif %}#}
+        </script>
+    {% endif %}
+
+{#    <div> <!-- Fix/close div previously closed by footer -->#}
+{% endblock %}

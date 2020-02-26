@@ -1,0 +1,35 @@
+{% load i18n cap_menu cap_tags %}
+
+{% get_menu request as menu %}
+{% with cap_layout='layout'|cap_conf:request %}
+    <div id="cap-nav">
+        <ul>
+            {% if menu %}
+                {% for parent_item in menu %}
+                    {% if not parent_item.align_right or cap_layout == 'vertical' %}
+                        {% include 'cap/menu_item.html' %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+        {% if menu.aligned_right_menu_items %}
+            <ul class="cap-nav-right">
+                {% for parent_item in menu.aligned_right_menu_items %}
+                    {% include 'cap/menu_item.html' %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+    {% if cap_layout == 'horizontal' and menu and menu.active_parent_item %}
+        <div id="cap-sub-nav">
+            <ul>
+                {% for child_item in menu.active_parent_item.children %}
+                    <li{{ child_item.is_active|yesno:' class=active,' }}>
+                        <a href="{{ child_item.url }}"
+                                {{ child_item.target_blank|yesno:' target=_blank,' }}>{{ child_item.label }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endwith %}
