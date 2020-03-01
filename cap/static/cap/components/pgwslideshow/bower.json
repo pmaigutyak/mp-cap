@@ -1,0 +1,9 @@
+{
+  "name": "pgwslideshow",
+  "version": "2.0.1",
+  "description": "Responsive slideshow / gallery / carousel for jQuery / Zepto",
+  "keywords": ["slider", "slideshow", "gallery", "carousel", "responsive","jquery"],
+  "homepage": "https://pgwjs.com/pgwslideshow",
+  "author": "Jonathan M. Piat",
+  "main": ["pgwslideshow.js", "pgwslideshow.css"]
+}

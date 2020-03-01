@@ -47,20 +47,3 @@ def get_current_app(request):
     except (VariableDoesNotExist, AttributeError):
         pass
     return None
-
-
-def set_config_value(name, value):
-    config = get_config()
-    # Store previous value to reset later if needed
-    prev_value_key = '_%s' % name
-    if not hasattr(config, prev_value_key):
-        setattr(config, prev_value_key, getattr(config, name))
-        setattr(config, name, value)
-
-
-def reset_config_value(name):
-    config = get_config()
-    prev_value_key = '_%s' % name
-    if hasattr(config, prev_value_key):
-        setattr(config, name, getattr(config, prev_value_key))
-        del config.__dict__[prev_value_key]

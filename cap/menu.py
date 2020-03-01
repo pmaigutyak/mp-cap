@@ -62,12 +62,6 @@ class MenuManager(object):
     def get_menu_items(self):
         if self.menu_items is None:
             self.menu_items = self.build_menu()
-            if self.cap_config.menu_handler:
-                if not callable(self.cap_config.menu_handler):
-                    raise TypeError('Django Cap "menu_handler" must callable')
-                self.menu_items = self.cap_config.menu_handler(
-                    self.menu_items, self.request, self.context)
-
         return self.menu_items
 
     def build_menu(self):

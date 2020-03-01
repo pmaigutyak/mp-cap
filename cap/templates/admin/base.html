@@ -1,11 +1,20 @@
+
 {% extends 'admin/base.html' %}
+
 {% load i18n static cap_tags %}
 
-{% block stylesheet %}{% static "cap/css/cap.css" %}{% endblock %}
+{% block stylesheet %}
+    {% static "cap/css/cap.css" %}
+{% endblock %}
 
 {% block extrastyle %}
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
-    <link href='{% static "cap/css/font-awesome.min.css" %}' rel='stylesheet' type='text/css'>
+    <link href='{% static "cap/bootstrap/bootstrap.min.css" %}' rel='stylesheet' type='text/css'>
+    <link href='{% static "cap/font-awesome/font-awesome.min.css" %}' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block extrahead %}
+    <link rel="shortcut icon" href="{% static "cap/img/favicon.ico" %}">
 {% endblock %}
 
 {% block bodyclass %}{{ block.super|cap_body_class:request }}{% endblock %}
@@ -74,7 +83,6 @@
 {% endblock %}
 
 {% block footer %}
-{#    </div> <!-- Put footer outside #container -->#}
     {% if not is_popup %}
         <div id="footer">
         <footer class="footer">
@@ -83,34 +91,13 @@
                     <div class="row">
 
                         <div class="col-xs-12 col-sm-3 footer-links">
-                            {% block footer_links %}
-                                <a href="http://djangocap.com/support/" target="_blank">Support</a>
-                                <a href="http://djangocap.com/pricing/" target="_blank">Licence</a>
-                                <a href="http://github.com/darklow/django-cap/issues" target="_blank">Report a bug</a>
-                            {% endblock %}
                         </div>
 
                         <div class="col-xs-12 col-sm-6 text-sm-center footer-copyright">
-                            {% block copyright %}
-                                Copyright &copy;
-                                <span class="hidden-md-down">2013-</span>{% now "Y" %} DjangoCap.com
-                                <br>Developed by
-                                <a href="http://djangocap.com" target="_blank">DjangoCap.com</a>
-                            {% endblock %}
                         </div>
 
                         <div class="col-xs-12 col-sm-3 text-sm-right footer-version">
-                            {% block footer_branding %}
-                                {% with admin_name=site_header|default:_('Django administration') django_version='django_version'|cap_conf:request %}
-                                    {{ admin_name }}
-                                    {% if admin_name == 'Django Cap' %}
-                                        <span style="font-size: 12px">
-                                            {{ 'version'|cap_conf:request }}<br/>
-                                            Django {{ django_version }}
-                                        </span>
-                                    {% endif %}
-                                {% endwith %}
-                            {% endblock %}
+
                         </div>
 
                     </div>
@@ -119,32 +106,37 @@
         </footer>
     {% endif %}
 
-{#    {{ block.super }}#}
-    <script src="{% static "cap/js/cap.js" %}"></script>
-    {% if cl.formset or action_form and 'toggle_changelist_top_actions'|cap_conf:request %}
-        <script type="text/javascript">
-            Cap.ListActionsToggle.init();
+    {% block js %}
+        <script src="{% static "cap/js/cap.js" %}"></script>
+
+        <script>
+            window.jQuery = django.jQuery;
+            window.$ = django.jQuery;
         </script>
-    {% elif adminform %}
-        <script type="text/javascript">
 
-            Cap.$("#{{ opts.model_name }}_form").capFormDebounce();
+        <script src="{% static "cap/components/jquery.form.min.js" %}"></script>
+        <script src="{% static "cap/bootstrap/bootstrap.min.js" %}"></script>
 
-            {% if 'form_submit_on_right'|cap_conf:request %}
-                Cap.FixedBar.init();
-            {% endif %}
+        {% if cl.formset or action_form and 'toggle_changelist_top_actions'|cap_conf:request %}
+            <script type="text/javascript">
+                Cap.ListActionsToggle.init();
+            </script>
+        {% elif adminform %}
+            <script type="text/javascript">
 
-            {% if adminform.model_admin.cap_form_tabs %}
-                Cap.$(function () {
-                    Cap.$('#cap_form_tabs').capFormTabs();
-                });
-            {% endif %}
+                Cap.$("#{{ opts.model_name }}_form").capFormDebounce();
 
-{#            {% if 'layout'|cap_conf:request.current_app == 'vertical' %}#}
-{#                Cap.$('#content').prepend(Cap.$('.breadcrumbs'));#}
-{#            {% endif %}#}
-        </script>
-    {% endif %}
+                {% if 'form_submit_on_right'|cap_conf:request %}
+                    Cap.FixedBar.init();
+                {% endif %}
 
-{#    <div> <!-- Fix/close div previously closed by footer -->#}
+                {% if adminform.model_admin.cap_form_tabs %}
+                    Cap.$(function () {
+                        Cap.$('#cap_form_tabs').capFormTabs();
+                    });
+                {% endif %}
+            </script>
+        {% endif %}
+    {% endblock %}
+
 {% endblock %}

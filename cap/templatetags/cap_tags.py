@@ -1,14 +1,10 @@
-import django
+
 from django import template
 from django.utils.safestring import mark_safe
+
 from cap import config
 
 register = template.Library()
-
-if django.VERSION < (1, 9):
-    simple_tag = register.assignment_tag
-else:
-    simple_tag = register.simple_tag
 
 
 @register.filter(name='cap_conf')
@@ -28,14 +24,3 @@ def cap_body_class(value, request):
                 else '_'.join((each, cap_conf_param))
             css_classes.append('cap_%s' % value)
     return ' '.join(css_classes)
-
-
-@simple_tag
-def cap_conf_value(name, model_admin=None):
-    if model_admin:
-        value_by_ma = getattr(model_admin, 'cap_%s' % name.lower(), None)
-        if value_by_ma in ('center', 'right'):
-            config.set_config_value(name, value_by_ma)
-        else:
-            config.reset_config_value(name)
-    return cap_conf(name)
