@@ -9,8 +9,9 @@
 
 {% block extrastyle %}
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
-    <link href='{% static "cap/bootstrap/bootstrap.min.css" %}' rel='stylesheet' type='text/css'>
-    <link href='{% static "cap/font-awesome/font-awesome.min.css" %}' rel='stylesheet' type='text/css'>
+    <link href='{% static "cap/components/bootstrap/bootstrap.min.css" %}' rel='stylesheet' type='text/css'>
+    <link href='{% static "cap/components/jquery-ui/jquery-ui.min.css" %}' rel='stylesheet' type='text/css'>
+    <link href='{% static "cap/components/font-awesome/font-awesome.min.css" %}' rel='stylesheet' type='text/css'>
 {% endblock %}
 
 {% block extrahead %}
@@ -108,14 +109,10 @@
 
     {% block js %}
         <script src="{% static "cap/js/cap.js" %}"></script>
-
-        <script>
-            window.jQuery = django.jQuery;
-            window.$ = django.jQuery;
-        </script>
-
+        <script src="{% static "cap/components/jquery.min.js" %}"></script>
+        <script src="{% static "cap/components/jquery-ui/jquery-ui.min.js" %}"></script>
         <script src="{% static "cap/components/jquery.form.min.js" %}"></script>
-        <script src="{% static "cap/bootstrap/bootstrap.min.js" %}"></script>
+        <script src="{% static "cap/components/bootstrap/bootstrap.min.js" %}"></script>
 
         {% if cl.formset or action_form and 'toggle_changelist_top_actions'|cap_conf:request %}
             <script type="text/javascript">
