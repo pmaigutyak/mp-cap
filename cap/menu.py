@@ -1,9 +1,18 @@
+
 from copy import deepcopy
 from django.utils.translation import ugettext_lazy as _
 
 
 class ChildItem(object):
-    def __init__(self, label=None, model=None, url=None, target_blank=False, permissions=None):
+
+    def __init__(
+            self,
+            label=None,
+            model=None,
+            url=None,
+            target_blank=False,
+            permissions=None):
+
         self.label = label
         self.model = model
         self.url = url
@@ -21,8 +30,18 @@ class ChildItem(object):
 
 
 class ParentItem(ChildItem):
-    def __init__(self, label=None, app=None, url=None, target_blank=False, permissions=None,
-                 children=None, align_right=False, use_first_child_url=True, icon=None):
+
+    def __init__(
+            self,
+            label=None,
+            app=None,
+            url=None,
+            target_blank=False,
+            permissions=None,
+            children=None,
+            align_right=False,
+            use_first_child_url=True,
+            icon=None):
         super().__init__(label, None, url, target_blank, permissions)
         self.user_children = children or []
         self.children = []

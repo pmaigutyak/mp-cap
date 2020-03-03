@@ -6,9 +6,6 @@
 {% block filters %}
     {% if cl.has_filters %}
         <div id="changelist-filter">{% for spec in cl.filter_specs|cap_list_filter_vertical:cl %}
-            {% if forloop.first %}
-                <h2>{% trans 'Filter' %}</h2>
-            {% endif %}
             {% admin_list_filter cl spec %}
         {% endfor %}</div>
     {% endif %}
