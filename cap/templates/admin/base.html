@@ -114,11 +114,20 @@
         <script src="{% static "cap/js/cap.js" %}"></script>
         <script src="{% static "cap/components/jquery.min.js" %}"></script>
         <script src="{% static "cap/components/jquery-ui/jquery-ui.min.js" %}"></script>
+        <script src="{{ STATIC_URL }}cap/components/jquery-ui/i18n/{{ LANGUAGE_CODE }}.js"></script>
         <script src="{% static "cap/components/jquery.form.min.js" %}"></script>
         <script src="{% static "cap/components/bootstrap/bootstrap.min.js" %}"></script>
         <script src="{% static "cap/components/bootstrap-treeview/bootstrap-treeview.min.js" %}"></script>
         <script src="{% static "cap/components/fancybox/jquery.fancybox.min.js" %}"></script>
         <script src="{% static "cap/components/qtip2/jquery.qtip.min.js" %}"></script>
+
+        <script>
+            $(function() {
+                $("[data-role=datepicker]").datepicker({
+                    dateFormat: 'dd/mm/yy'
+                });
+            });
+        </script>
 
         {% if cl.formset or action_form and 'toggle_changelist_top_actions'|cap_conf:request %}
             <script type="text/javascript">
