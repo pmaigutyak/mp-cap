@@ -122,6 +122,27 @@
         <script src="{% static "cap/components/qtip2/jquery.qtip.min.js" %}"></script>
 
         <script>
+            $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+                function isPost(method) {
+                    if (typeof method === 'string' || method instanceof String) {
+                        return method.toLowerCase() === 'post'
+                    }
+                    return false;
+                }
+                if (isPost(originalOptions.type) || isPost(options.type)) {
+                    options.data = $.param(
+                        $.extend(
+                            {},
+                            originalOptions.data,
+                            {csrfmiddlewaretoken: '{{ csrf_token }}'}
+                        ),
+                        true
+                    );
+                }
+            });
+        </script>
+
+        <script>
             $(function() {
                 $("[data-role=datepicker]").datepicker({
                     dateFormat: 'dd/mm/yy'

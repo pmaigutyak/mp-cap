@@ -4,7 +4,7 @@ class CapSettings(object):
     @property
     def INSTALLED_APPS(self):
         return [
-            'core.configs.CapConfig',
+            'cap',
             'adminplus',
             'django.contrib.admin.apps.SimpleAdminConfig'
         ] + super().INSTALLED_APPS
@@ -12,3 +12,6 @@ class CapSettings(object):
     @property
     def DATE_INPUT_FORMATS(self):
         return ['%d/%m/%Y'] + super().DATE_INPUT_FORMATS
+
+
+default = CapSettings

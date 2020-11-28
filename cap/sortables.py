@@ -132,7 +132,6 @@ class SortableModelAdmin(SortableModelAdminBase, admin.ModelAdmin):
         self._original_list_display = copy(self.list_display)
         self._original_list_editable = copy(self.list_editable)
         self._original_exclude = copy(self.exclude)
-        self._original_list_per_page = self.list_per_page
 
         self.enable_sortable()
 
@@ -156,7 +155,6 @@ class SortableModelAdmin(SortableModelAdminBase, admin.ModelAdmin):
         return SortableChangeList
 
     def enable_sortable(self):
-        self.list_per_page = 500
         self.ordering = (self.sortable,)
         if self.list_display and self.sortable not in self.list_display:
             self.list_display = list(self.list_display) + [self.sortable]
@@ -176,7 +174,6 @@ class SortableModelAdmin(SortableModelAdminBase, admin.ModelAdmin):
         self.list_display = self._original_list_display
         self.list_editable = self._original_list_editable
         self.exclude = self._original_exclude
-        self.list_per_page = self._original_list_per_page
 
     def sortable_is_enabled(self):
         return self.list_display and self.sortable in self.list_display

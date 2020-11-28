@@ -1,6 +1,7 @@
 
 from copy import deepcopy
-from django.utils.translation import ugettext_lazy as _
+
+from django.conf import settings
 
 
 class ChildItem(object):
@@ -56,7 +57,7 @@ class ParentItem(ChildItem):
 
 class MenuManager(object):
     def __init__(self, available_apps, context, request):
-        from .config import get_config_instance, get_current_app
+        from .config import get_current_app
 
         super().__init__()
 
@@ -67,8 +68,8 @@ class MenuManager(object):
         self.context = context
         self.request = request
         self.current_app = get_current_app(request)
-        self.cap_config = get_config_instance(self.current_app)
-        self.user_menu = self.cap_config.menu
+        self.user_menu = getattr(settings, 'ADMIN_MENU')
+        self.layout = getattr(settings, 'ADMIN_LAYOUT', 'vertical')
         self.menu_items = None
         self.aligned_right_menu_items = []
         self.active_parent_item = None
@@ -113,12 +114,8 @@ class MenuManager(object):
             if not self.parent_item_is_forbidden(parent_item, native_app):
                 menu_items.append(parent_item)
 
-                if parent_item.align_right and self.cap_config.layout == 'horizontal':
+                if parent_item.align_right and self.layout == 'horizontal':
                     self.aligned_right_menu_items.append(parent_item)
-
-        if self.cap_config.menu_show_home:
-            home_item = ParentItem(_('Home'), url='admin:index', icon='fa fa-home')
-            menu_items.insert(0, self.handle_user_url(home_item))
 
         return self.mark_active(menu_items)
 

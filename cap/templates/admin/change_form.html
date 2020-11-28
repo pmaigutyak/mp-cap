@@ -34,18 +34,14 @@
 {% endblock %}
 
 {% block inline_field_sets %}
-{#    {% cap_form_conf 'form_inlines_hide_original' as cap_form_inlines_hide_original %}#}
-{#    {{ cap_form_inlines_hide_original }}#}
     {% for inline_admin_formset in inline_admin_formsets %}
-        {% cap_form_conf 'form_inlines_hide_original' inline_admin_formset as cap_form_inlines_hide_original %}
-        <div class="{{ inline_admin_formset.opts.cap_classes }} {% if cap_form_inlines_hide_original %} cap-inlines-hide-original{% endif %}">
+        <div class="{{ inline_admin_formset.opts.cap_classes }}">
             {% include inline_admin_formset.opts.template %}
         </div>
     {% endfor %}
 {% endblock %}
 
 {% block after_field_sets %}
-    {# render cap_form_includes at middle position #}
     {% include 'cap/change_form_includes.html' with position='middle' %}
 
     {{ block.super }}

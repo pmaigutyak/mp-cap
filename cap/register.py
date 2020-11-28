@@ -17,9 +17,9 @@ class AdminSite(AdminSitePlus):
         return urls
 
 
-def register_admin():
+def register_admin(site_header='Admin'):
     site = AdminSite()
     admin.site = site
     admin.sites.site = site
-    admin.site.site_header = 'Admin'
+    admin.site.site_header = site_header
     autodiscover_modules('admin', register_to=site)

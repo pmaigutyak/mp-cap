@@ -22,17 +22,11 @@ class DjangoCapConfig(AppConfig):
 
     layout = 'vertical'
 
-    list_per_page = 20
-
     toggle_changelist_top_actions = True
 
     menu = []
 
-    menu_show_home = True
-
-    form_submit_on_right = True
-
-    form_inlines_hide_original = False
+    form_submit_on_right = False
 
     form_size = {
         'default': CAP_FORM_SIZE_X_LARGE,
@@ -42,17 +36,8 @@ class DjangoCapConfig(AppConfig):
     }
 
     def __init__(self, app_name, app_module):
-        self.setup_model_admin_defaults()
-        super().__init__(app_name, app_module)
 
-    def ready(self):
-        super().ready()
-
-    def setup_model_admin_defaults(self):
-
-        if self.toggle_changelist_top_actions:
-            ModelAdmin.actions_on_top = True
+        ModelAdmin.actions_on_top = True
         ModelAdmin.actions_on_bottom = True
 
-        if self.list_per_page:
-            ModelAdmin.list_per_page = self.list_per_page
+        super().__init__(app_name, app_module)
