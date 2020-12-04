@@ -8797,7 +8797,7 @@ body.cap_layout_vertical #cap-nav > ul > li > ul > li a {
     background-color: #f5f5f5;
 }
 
-.submit-row {
+.change-form .submit-row {
     position: fixed;
     bottom: 0;
     right: 0;

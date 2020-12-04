@@ -1,5 +1,6 @@
 
 from django import template
+from django.conf import settings
 from django.utils.safestring import mark_safe
 
 from cap import config
@@ -24,3 +25,10 @@ def cap_body_class(value, request):
                 else '_'.join((each, cap_conf_param))
             css_classes.append('cap_%s' % value)
     return ' '.join(css_classes)
+
+
+@register.simple_tag(takes_context=True)
+def get_core_settings(context):
+    if context.request.user.is_staff:
+        return settings
+    return {}

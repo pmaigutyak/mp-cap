@@ -1,0 +1,54 @@
+
+{% extends "admin/base_site.html" %}
+
+{% load i18n cap_tags %}
+
+
+{% block extrastyle %}
+    {{ block.super }}
+{% endblock %}
+
+
+{% block breadcrumbs %}{% endblock %}
+
+
+{% block sidebar %}{% endblock %}
+
+
+{% block content %}
+
+    <div class="row">
+
+        <div class="card col-md-6">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fa fa-list"></i>
+                    {% trans 'Summary' %}
+                </h5>
+            </div>
+        </div>
+
+        {% get_core_settings as settings %}
+
+        <div class="card col-md-6">
+            <div class="card-body">
+                <h5 class="card-title">
+                    <i class="fa fa-cogs"></i>
+                    {% trans 'Settings' %}
+                </h5>
+
+                {% trans 'Admins' %}: {{ settings.ADMINS }} <br />
+                {% trans 'Managers' %}: {{ settings.MANAGERS }} <br />
+                {% trans 'yes,no' as yesno %}
+                {% trans 'Debug mode' %}: {{ settings.DEBUG|yesno:yesno }} <br />
+                {% trans 'Email port' %}: {{ settings.EMAIL_PORT }} <br />
+                {% trans 'Email backend' %}: {{ settings.EMAIL_BACKEND }} <br />
+                {% trans 'Email host' %}: {{ settings.EMAIL_HOST }} <br />
+                {% trans 'Email user' %}: {{ settings.EMAIL_HOST_USER }} <br />
+                {% trans 'Email password' %}: {{ settings.EMAIL_HOST_PASSWORD|slice:':2' }}****** <br />
+                {% trans 'Developer email' %}: {{ settings.DEV_EMAIL }} <br />
+                {% trans 'Timezone' %}: {{ settings.TIME_ZONE }} <br />
+            </div>
+        </div>
+    </div>
+{% endblock %}
