@@ -15,6 +15,7 @@
     <link href='{% static "cap/components/qtip2/jquery.qtip.min.css" %}' rel='stylesheet' type='text/css'>
     <link href='{% static "cap/components/fancybox/jquery.fancybox.min.css" %}' rel='stylesheet' type='text/css'>
     <link href='{% static "cap/components/bootstrap-treeview/bootstrap-treeview.min.css" %}' rel='stylesheet' type='text/css'>
+    <link href='{% static "cap/components/bootstrap-tagsinput/bootstrap-tagsinput.css" %}' rel='stylesheet' type='text/css'>
 {% endblock %}
 
 {% block extrahead %}
@@ -120,27 +121,8 @@
         <script src="{% static "cap/components/bootstrap-treeview/bootstrap-treeview.min.js" %}"></script>
         <script src="{% static "cap/components/fancybox/jquery.fancybox.min.js" %}"></script>
         <script src="{% static "cap/components/qtip2/jquery.qtip.min.js" %}"></script>
-
-        <script>
-            $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-                function isPost(method) {
-                    if (typeof method === 'string' || method instanceof String) {
-                        return method.toLowerCase() === 'post'
-                    }
-                    return false;
-                }
-                if (isPost(originalOptions.type) || isPost(options.type)) {
-                    options.data = $.param(
-                        $.extend(
-                            {},
-                            originalOptions.data,
-                            {csrfmiddlewaretoken: '{{ csrf_token }}'}
-                        ),
-                        true
-                    );
-                }
-            });
-        </script>
+        <script src="{{ STATIC_URL }}cap/components/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+        <script src="{{ STATIC_URL }}jquery/ajax-csrf.js"></script>
 
         <script>
             $(function() {

@@ -8761,7 +8761,7 @@ table#change-history thead > tr th {
 /* Refactor */
 
 .col-multi-fields .multi-field {
-    flex-basis: 25rem;
+    flex-basis: 25%;
     padding-right: 3rem;
 }
 

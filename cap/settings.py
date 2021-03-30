@@ -3,11 +3,17 @@ class CapSettings(object):
 
     @property
     def INSTALLED_APPS(self):
-        return [
+
+        apps = super().INSTALLED_APPS + [
             'cap',
             'adminplus',
             'django.contrib.admin.apps.SimpleAdminConfig'
-        ] + super().INSTALLED_APPS
+        ]
+
+        if 'easy_select2' not in apps:
+            apps.append('easy_select2')
+
+        return apps
 
     @property
     def DATE_INPUT_FORMATS(self):

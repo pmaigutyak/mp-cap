@@ -1,1 +1,2 @@
 django-adminplus==0.5
+django-easy-select2==1.5.7
