@@ -7623,7 +7623,8 @@ body.cap_layout_vertical #header {
 }
 
 body.cap_layout_vertical #header #branding {
-    padding: 1.04167rem 0.625rem 1.04167rem;
+    padding: 5px;
+    background-color: #fff;
 }
 
 body.cap_layout_vertical #header #branding #site-name {

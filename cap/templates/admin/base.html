@@ -19,6 +19,10 @@
 {% endblock %}
 
 {% block extrahead %}
+    <script>
+        lang_code = '{{ LANGUAGE_CODE }}';
+        csrf='{{ csrf_token }}';
+    </script>
     <link rel="shortcut icon" href="{% static "cap/img/favicon.ico" %}">
 {% endblock %}
 

@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 
-version = '1.2'
+version = '1.2.1'
 url = 'https://github.com/pmaigutyak/mp-cap'
 
 with open('requirements.txt') as f:
