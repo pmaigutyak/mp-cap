@@ -12,7 +12,7 @@ storage.db
 *.pem
 *.crt
 media
-static-collect
-debug.log
 dist
+*.egg-info
+build
 django_mp_cap.egg-info

@@ -1,7 +1,7 @@
 include README.md
 include LICENSE
 include requirements.txt
-recursive-include cap/locale *
-recursive-include cap/templates *
-recursive-include cap/static *
+recursive-include */locale *
+recursive-include */templates *
+recursive-include */static *
 prune *.pyc
