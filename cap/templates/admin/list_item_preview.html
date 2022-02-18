@@ -1,0 +1,11 @@
+
+{% load thumbnail %}
+{% if file.url.lower|slice:"-3:" == 'svg'%}
+    <img src="{{ file.url }}" width="100" alt="{{ file.url }}">
+{% else %}
+    {% thumbnail file "100" crop="top" as img %}
+        <img src="{{ img.url }}" alt="{{ file.url }}">
+    {% empty %}
+        ----
+    {% endthumbnail %}
+{% endif %}
