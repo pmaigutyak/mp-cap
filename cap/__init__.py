@@ -9,6 +9,7 @@ def setup_settings(settings, **kwargs):
             'cap.configs.SuitConfig',
             'django.contrib.admin.apps.SimpleAdminConfig',
             'adminplus',
+            'adminsortable2',
             'easy_select2'
         ] if app not in settings['INSTALLED_APPS']
     ]
