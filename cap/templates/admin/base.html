@@ -6,6 +6,7 @@
 
 {% block extrastyle %}
     {% block css %}
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
         <link href='{% static "cap/components/bootstrap/bootstrap.min.css" %}' rel='stylesheet' type='text/css'>
         <link href='{% static "cap/components/jquery-ui/jquery-ui.min.css" %}' rel='stylesheet' type='text/css'>
         <link href='{% static "cap/components/font-awesome/font-awesome.min.css" %}' rel='stylesheet' type='text/css'>
@@ -15,6 +16,15 @@
         <link href='{% static "cap/components/bootstrap-tagsinput/bootstrap-tagsinput.css" %}' rel='stylesheet' type='text/css'>
     {% endblock %}
 {% endblock %}
+
+{% block extrahead %}
+    <script>
+        lang_code = '{{ LANGUAGE_CODE }}';
+        csrf='{{ csrf_token }}';
+    </script>
+    <link rel="shortcut icon" href="{% static "cap/img/favicon.ico" %}">
+{% endblock %}
+
 
 
 {% block footer %}
