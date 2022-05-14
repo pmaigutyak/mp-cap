@@ -1,0 +1,59 @@
+
+{% load suit_forms widget_tweaks %}
+
+
+<fieldset class="suit-form module aligned {{ fieldset.classes }}">
+    {% if fieldset.name %}<h2>{{ fieldset.name }}</h2>{% endif %}
+
+    {% if fieldset.description %}
+        <div class="description">{{ fieldset.description|safe }}</div>
+    {% endif %}
+
+    {% for line in fieldset %}
+        {% with is_single=line.fields|length_is:'1' %}
+
+            <div class="form-group row form-row {% if is_single and line.errors or field.errors %} has-danger errors{% endif %}{% if not line.has_visible_field %} hidden{% endif %}{% for field in line %}{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% if field.field.is_hidden %} hidden{% endif %}{% endfor %}">
+
+                <div class="col-xs-12 {% if not is_single %}col-multi-fields{% endif %}">
+                    {% for field in line %}
+
+                        {% if not is_single %}
+                            <div class="multi-field">
+                        {% endif %}
+
+                        <label for="{{ field.auto_id }}">
+                            {{ field.field.label }}
+                        </label>
+
+                        <div class="clearfix"></div>
+
+                        {% if field.is_readonly %}
+                            <p class="form-control-static">{{ field.contents }}</p>
+                        {% else %}
+                            {{ field.field|add_class:"form-control" }}
+                        {% endif %}
+
+                        {% if field.errors and not is_single and not field.is_readonly %}
+                            <div class="text-help">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                        {% if is_single and line.errors %}
+                            <div class="text-help">
+                                {{ line.errors }}
+                            </div>
+                        {% endif %}
+                        {% if field.field.help_text %}
+                            <small class="text-help">{{ field.field.help_text|safe }}</small>
+                        {% endif %}
+
+                        {% if not is_single %}
+                            </div>
+                        {% endif %}
+
+                    {% endfor %}
+                </div>
+            </div>
+        {% endwith %}
+    {% endfor %}
+</fieldset>
