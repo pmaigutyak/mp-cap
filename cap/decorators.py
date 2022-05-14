@@ -1,5 +1,24 @@
 
 from django.template.loader import render_to_string
+from django.contrib.admin.views.decorators import staff_member_required
+
+from cap.views import render
+
+
+def admin_render_view(template_name):
+
+    def decorator(view_func):
+
+        @staff_member_required
+        def wrapper(request, *args, **kwargs):
+
+            context = view_func(request, *args, **kwargs)
+
+            return render(request, template_name, context)
+
+        return wrapper
+
+    return decorator
 
 
 def short_description(description):
