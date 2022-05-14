@@ -1,5 +1,7 @@
 
 {% load thumbnail %}
+
+
 {% if file.url.lower|slice:"-3:" == 'svg'%}
     <img src="{{ file.url }}" width="100" alt="{{ file.url }}">
 {% else %}
