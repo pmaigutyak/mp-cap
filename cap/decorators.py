@@ -1,4 +1,5 @@
 
+from django.http.response import HttpResponseBase
 from django.template.loader import render_to_string
 from django.contrib.admin.views.decorators import staff_member_required
 
@@ -13,6 +14,9 @@ def admin_render_view(template_name):
         def wrapper(request, *args, **kwargs):
 
             context = view_func(request, *args, **kwargs)
+
+            if isinstance(context, HttpResponseBase):
+                return context
 
             return render(request, template_name, context)
 
