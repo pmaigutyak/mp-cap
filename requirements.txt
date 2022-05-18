@@ -1,4 +1,4 @@
-
+django-mp-notify==0.1
 django-adminplus==0.5
 django-easy-select2==1.5.8
 django-admin-sortable2==1.0.4

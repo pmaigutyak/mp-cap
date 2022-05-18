@@ -8,6 +8,7 @@ def setup_settings(settings, **kwargs):
         app for app in [
             'cap.configs.SuitConfig',
             'django.contrib.admin.apps.SimpleAdminConfig',
+            'notify',
             'adminplus',
             'adminsortable2',
             'easy_select2'
