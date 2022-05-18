@@ -1,21 +1,17 @@
 
 {% extends 'admin/base.html' %}
 
-{% load i18n static %}
+{% load i18n static pipeline %}
 
 
 {% block extrastyle %}
     {% block css %}
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
-        <link href='{% static "cap/components/bootstrap/bootstrap.min.css" %}' rel='stylesheet' type='text/css'>
-        <link href='{% static "cap/components/jquery-ui/jquery-ui.min.css" %}' rel='stylesheet' type='text/css'>
-        <link href='{% static "cap/components/font-awesome/font-awesome.min.css" %}' rel='stylesheet' type='text/css'>
-        <link href='{% static "cap/components/qtip2/jquery.qtip.min.css" %}' rel='stylesheet' type='text/css'>
-        <link href='{% static "cap/components/fancybox/jquery.fancybox.min.css" %}' rel='stylesheet' type='text/css'>
-        <link href='{% static "cap/components/bootstrap-treeview/bootstrap-treeview.min.css" %}' rel='stylesheet' type='text/css'>
-        <link href='{% static "cap/components/bootstrap-tagsinput/bootstrap-tagsinput.css" %}' rel='stylesheet' type='text/css'>
+
+        {% stylesheet 'admin' %}
     {% endblock %}
 {% endblock %}
+
 
 {% block extrahead %}
     <script>
@@ -26,19 +22,9 @@
 {% endblock %}
 
 
-
 {% block footer %}
     {% block js %}
-        <script src="{% static "cap/components/jquery.min.js" %}"></script>
-        <script src="{% static "cap/components/jquery-ui/jquery-ui.min.js" %}"></script>
-        <script src="{{ STATIC_URL }}cap/components/jquery-ui/i18n/{{ LANGUAGE_CODE }}.js"></script>
-        <script src="{% static "cap/components/jquery.form.min.js" %}"></script>
-        <script src="{% static "cap/components/bootstrap/bootstrap.min.js" %}"></script>
-        <script src="{% static "cap/components/bootstrap-treeview/bootstrap-treeview.min.js" %}"></script>
-        <script src="{% static "cap/components/fancybox/jquery.fancybox.min.js" %}"></script>
-        <script src="{% static "cap/components/qtip2/jquery.qtip.min.js" %}"></script>
-        <script src="{{ STATIC_URL }}cap/components/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
-        <script src="{{ STATIC_URL }}jquery/ajax-csrf.js"></script>
+        {% javascript 'admin' %}
 
         <script>
             $(function() {
