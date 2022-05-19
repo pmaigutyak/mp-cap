@@ -14,6 +14,7 @@ def setup_settings(settings, **kwargs):
             'cap/components/bootstrap-treeview/bootstrap-treeview.min.css',
             'cap/components/bootstrap-tagsinput/bootstrap-tagsinput.css'
             'cap/components/select2/select2.css',
+            'cap/css/common.css',
             'cap/css/sidebar.css'
         ],
         **settings.get('CSS_COMPONENTS', {})
