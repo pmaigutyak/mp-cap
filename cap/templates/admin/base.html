@@ -4,6 +4,17 @@
 {% load i18n static pipeline %}
 
 
+{% block welcome-msg %}
+    <div class="sidebar-username">
+        <strong>{% firstof user.get_short_name user.get_username %}</strong>
+    </div>
+    <button class="btn btn-link btn-light toggle-sidebar-btn" data-role="sidebar-toggle">
+        <i class="fa fa-chevron-left"></i>
+        <i class="fa fa-chevron-right"></i>
+    </button>
+{% endblock %}
+
+
 {% block extrastyle %}
     {% block css %}
         <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>

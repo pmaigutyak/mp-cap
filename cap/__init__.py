@@ -13,7 +13,8 @@ def setup_settings(settings, **kwargs):
             'cap/components/fancybox/jquery.fancybox.min.css',
             'cap/components/bootstrap-treeview/bootstrap-treeview.min.css',
             'cap/components/bootstrap-tagsinput/bootstrap-tagsinput.css'
-            'cap/components/select2/select2.css'
+            'cap/components/select2/select2.css',
+            'cap/css/sidebar.css'
         ],
         **settings.get('CSS_COMPONENTS', {})
     }
@@ -22,6 +23,7 @@ def setup_settings(settings, **kwargs):
         'admin': [
             'cap/components/jquery.min.js',
             'cap/components/jquery.form.min.js',
+            'cap/components/jquery.cookie.js',
             'cap/components/bootstrap/bootstrap.min.js',
             'cap/components/bootstrap-treeview/bootstrap-treeview.min.js',
             'cap/components/fancybox/jquery.fancybox.min.js',
@@ -33,6 +35,7 @@ def setup_settings(settings, **kwargs):
             'cap/components/select2/i18n/uk.js.js',
             'cap/components/select2/i18n/en.js.js',
             'cap/components/select2/i18n/ru.js.js',
+            'cap/js/sidebar.js'
         ],
         **settings.get('JS_COMPONENTS', {})
     }
