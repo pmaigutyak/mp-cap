@@ -26,6 +26,8 @@
     {% block js %}
         {% javascript 'admin' %}
 
+        <script src="{{ STATIC_URL }}cap/components/jquery-ui/i18n/{{ LANGUAGE_CODE }}.js"></script>
+
         <script>
             $(function() {
                 $("[data-role=datepicker]").datepicker({
