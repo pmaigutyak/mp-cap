@@ -13,7 +13,6 @@ def setup_settings(settings, **kwargs):
             'cap/components/fancybox/jquery.fancybox.min.css',
             'cap/components/bootstrap-treeview/bootstrap-treeview.min.css',
             'cap/components/bootstrap-tagsinput/bootstrap-tagsinput.css'
-            'cap/components/select2/select2.css',
             'cap/css/common.css',
             'cap/css/sidebar.css'
         ],
@@ -32,10 +31,6 @@ def setup_settings(settings, **kwargs):
             'cap/components/bootstrap-tagsinput/bootstrap-tagsinput.js',
             'jquery/ajax-csrf.js',
             'cap/components/jquery-ui/jquery-ui.min.js',
-            'cap/components/select2/select2.js',
-            'cap/components/select2/i18n/uk.js.js',
-            'cap/components/select2/i18n/en.js.js',
-            'cap/components/select2/i18n/ru.js.js',
             'cap/js/sidebar.js'
         ],
         **settings.get('JS_COMPONENTS', {})
@@ -46,9 +41,10 @@ def setup_settings(settings, **kwargs):
             'cap.configs.SuitConfig',
             'django.contrib.admin.apps.SimpleAdminConfig',
             'notify',
+            'djforms',
             'adminplus',
             'adminsortable2',
-            'easy_select2'
+            'django_select2'
         ] if app not in settings['INSTALLED_APPS']
     ]
 
