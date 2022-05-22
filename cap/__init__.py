@@ -12,7 +12,7 @@ def setup_settings(settings, **kwargs):
             'cap/components/qtip2/jquery.qtip.min.css',
             'cap/components/fancybox/jquery.fancybox.min.css',
             'cap/components/bootstrap-treeview/bootstrap-treeview.min.css',
-            'cap/components/bootstrap-tagsinput/bootstrap-tagsinput.css'
+            'cap/components/bootstrap-tagsinput/bootstrap-tagsinput.css',
             'cap/css/common.css',
             'cap/css/sidebar.css'
         ],
