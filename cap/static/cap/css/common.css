@@ -45,6 +45,25 @@ body.hidden-breadcrumbs #container #content {
     padding-top: 20px !important;
 }
 
+.change-form .edit-row .col-right {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    padding-left: 230px;
+    margin: 0;
+}
+
+.change-form .edit-row .col-right .submit-row {
+    padding: 10px;
+    border-top: 2px solid #7a7a7a;
+    background: #fff;
+}
+
+.change-form #container.collapsed .edit-row .col-right {
+    padding-left: 46px;
+}
+
 #footer {
     display: none !important;
 }
