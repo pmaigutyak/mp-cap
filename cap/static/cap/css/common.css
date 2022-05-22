@@ -67,3 +67,10 @@ body.hidden-breadcrumbs #container #content {
 #footer {
     display: none !important;
 }
+
+
+@media (max-width: 1024px) {
+    #header {
+        padding: 0 !important;
+    }
+}
