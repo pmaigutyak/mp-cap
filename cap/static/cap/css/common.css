@@ -64,6 +64,11 @@ body.hidden-breadcrumbs #container #content {
     padding-left: 46px;
 }
 
+.change-form.popup #container .edit-row .col-right,
+.change-form.popup #container.collapsed .edit-row .col-right {
+    padding-left: 0;
+}
+
 #footer {
     display: none !important;
 }
@@ -72,5 +77,13 @@ body.hidden-breadcrumbs #container #content {
 @media (max-width: 1024px) {
     #header {
         padding: 0 !important;
+    }
+
+    #changelist-filter {
+        position: fixed;
+        background: #fff;
+        z-index: 2;
+        height: 100%;
+        overflow: auto;
     }
 }
