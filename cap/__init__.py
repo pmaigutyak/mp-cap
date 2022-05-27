@@ -40,6 +40,7 @@ def setup_settings(settings, **kwargs):
             'notify',
             'djforms',
             'adminplus',
-            'adminsortable2'
+            'adminsortable2',
+            'rangefilter'
         ] if app not in settings['INSTALLED_APPS']
     ]

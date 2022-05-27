@@ -87,3 +87,7 @@ body.hidden-breadcrumbs #container #content {
         overflow: auto;
     }
 }
+
+.admindatefilter {
+    padding-top: 10px;
+}
