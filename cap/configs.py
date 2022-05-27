@@ -10,4 +10,6 @@ class SuitConfig(DjangoSuitConfig):
 
     layout = getattr(settings, 'ADMIN_LAYOUT', 'vertical')
 
+    menu_show_home = getattr(settings, 'ADMIN_MENU_SHOW_HOME', True)
+
     form_submit_on_right = False
