@@ -26,6 +26,7 @@ def setup_settings(settings, **kwargs):
             'cap/components/fancybox/jquery.fancybox.min.js',
             'cap/components/qtip2/jquery.qtip.min.js',
             'cap/components/bootstrap-tagsinput/bootstrap-tagsinput.js',
+            'jquery/jquery.ba-bbq.js',
             'jquery/ajax-csrf.js',
             'cap/components/jquery-ui/jquery-ui.min.js',
             'cap/js/sidebar.js'
