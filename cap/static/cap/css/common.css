@@ -73,6 +73,39 @@ body.hidden-breadcrumbs #container #content {
     display: none !important;
 }
 
+.form-row input[type=checkbox] {
+    width: 36px;
+}
+
+.form-row input[type=number] {
+    width: 100%;
+}
+
+.col-multi-fields .multi-field {
+    flex-basis: 250px;
+}
+
+.related-widget-wrapper {
+    position: relative;
+}
+
+.related-widget-wrapper-link {
+    position: absolute;
+    top: -20px;
+}
+
+.related-widget-wrapper-link.change-related {
+    right: 15px;
+}
+
+.related-widget-wrapper-link.add-related {
+    right: 31px;
+}
+
+.related-widget-wrapper-link.delete-related {
+    right: 0;
+}
+
 
 @media (max-width: 1024px) {
     #header {
