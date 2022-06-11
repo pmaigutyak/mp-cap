@@ -107,6 +107,14 @@ body.hidden-breadcrumbs #container #content {
     right: 0;
 }
 
+#changelist #changelist-filter ul {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+#changelist #changelist-filter ul li a {
+    padding-left: 2px;
+}
 
 @media (max-width: 1024px) {
     #header {
