@@ -133,3 +133,7 @@ body.hidden-breadcrumbs #container #content {
 .admindatefilter {
     padding-top: 10px;
 }
+
+.select2-container--admin-autocomplete.select2-container {
+    width: 100% !important;
+}
