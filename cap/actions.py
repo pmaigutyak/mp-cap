@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib import admin
 from django.shortcuts import render, redirect
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 
 
