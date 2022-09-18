@@ -72,6 +72,18 @@
     display: none;
 }
 
+#container.collapsed #header #suit-nav li.active:hover .sub-nav {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    left: 40px;
+    top: 0
+}
+
+#container.collapsed #suit-nav > ul > li.active:after {
+    display: none;
+}
+
 #container.collapsed .breadcrumbs {
     left: 46px !important;
 }
