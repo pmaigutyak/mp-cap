@@ -1,4 +1,8 @@
 
+#main {
+    flex-basis: 100%;
+}
+
 @media print {
     body {
         font-size: 18px;
@@ -107,6 +111,11 @@ body.hidden-breadcrumbs #container #content {
     right: 0;
 }
 
+#changelist {
+    justify-content: space-between;
+    gap: 10px;
+}
+
 #changelist #changelist-filter ul {
     max-height: 350px;
     overflow-y: auto;
@@ -114,6 +123,10 @@ body.hidden-breadcrumbs #container #content {
 
 #changelist #changelist-filter ul li a {
     padding-left: 2px;
+}
+
+.changelist-form-container {
+    flex: 1;
 }
 
 @media (max-width: 1024px) {

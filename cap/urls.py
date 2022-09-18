@@ -9,6 +9,7 @@ if hasattr(settings, 'SITE_HEADER'):
     admin.site.site_header = settings.SITE_HEADER
 
 admin.autodiscover()
+admin.site.enable_nav_sidebar = False
 
 
 app_urls = i18n_patterns(
