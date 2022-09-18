@@ -150,3 +150,11 @@ body.hidden-breadcrumbs #container #content {
 .select2-container--admin-autocomplete.select2-container {
     width: 100% !important;
 }
+
+.content #content > h1 {
+    display: none;
+}
+
+.content > .messagelist {
+    display: none;
+}
