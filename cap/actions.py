@@ -1,6 +1,7 @@
 
 from django import forms
 from django.contrib import admin
+from django.contrib.admin.helpers import ACTION_CHECKBOX_NAME
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
@@ -23,7 +24,7 @@ def related_field_change_action(model, field_name, action_name):
         apply = 'apply' in data
 
         initial = {
-            '_selected_action': data.getlist(admin.ACTION_CHECKBOX_NAME)
+            '_selected_action': data.getlist(ACTION_CHECKBOX_NAME)
         }
 
         form = FieldForm(
