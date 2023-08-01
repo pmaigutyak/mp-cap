@@ -162,3 +162,77 @@ body.hidden-breadcrumbs #container #content {
 tr.form-row {
     display: table-row;
 }
+
+#branding {
+    background-color: #f8f8f8;
+    padding: 5px 0 10px !important;
+}
+
+#branding-logo {
+    margin: 0 auto;
+    width: 100px;
+    display: block;
+}
+
+#user-tools {
+    padding: 5px !important;
+    border-bottom: 2px solid #f8f8f8;
+}
+
+#user-tools .user-links {
+    margin: 0 !important;
+}
+
+#user-tools .welcome {
+    display: none !important;
+}
+
+#content {
+    background-color: #f8f8f8 !important;
+}
+
+@media print {
+    body {
+        font-size: 18px;
+    }
+
+    h4 {
+        font-size: 24px;
+    }
+
+    #header,
+    #footer,
+    .print-btn,
+    .filter-form,
+    .breadcrumbs {
+        display: none !important;
+    }
+
+    #content {
+        background-color: #fff !important;
+        padding: 0 !important;
+    }
+
+    .table td {
+        padding: 3px;
+        font-weight: 500;
+        font-size: 18px;
+    }
+
+    .table-bordered td, .table-bordered th {
+        border: 1px solid #000 !important;
+    }
+
+    a {
+        color: #333 !important;
+        text-decoration: none !important;
+    }
+}
+
+body.hidden-breadcrumbs .breadcrumbs {
+    display: none !important;
+}
+
+body.hidden-breadcrumbs #container #content {
+    padding-top: 20px !important;
+}
