@@ -2,11 +2,9 @@
 from setuptools import setup, find_packages
 
 
-version = '3.0.6'
+version = '3.1.0'
 url = 'https://github.com/pmaigutyak/mp-cap'
 
-with open('requirements.txt') as f:
-    requires = f.read().splitlines()
 
 setup(
     name='django-mp-cap',
@@ -19,5 +17,4 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     license='MIT',
-    install_requires=requires
 )
