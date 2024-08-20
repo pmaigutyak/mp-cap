@@ -1,0 +1,31 @@
+{% load i18n cap %}
+<button class="sticky toggle-nav-sidebar" id="toggle-nav-sidebar" aria-label="{% translate 'Toggle navigation' %}"></button>
+<nav class="sticky" id="nav-sidebar" aria-label="{% translate 'Sidebar' %}">
+
+    {# #nav-filter here to make django nav js work #}
+    <div id="nav-filter" class="hidden"></div>
+
+    {% get_cap_menu request as menu %}
+    <ul class="sidebar-nav">
+        {% for parent_item in menu.get_menu_items %}
+            <li class="nav-item {{ parent_item.children|yesno:' has-children,' }}">
+                <a class="nav-link {{ parent_item.is_active|yesno:'active,' }}"
+                   href="{{ parent_item.url }}"
+                   {{ parent_item.target_blank|yesno:'target=_blank,' }}>
+                    <i class="{% firstof parent_item.icon 'fa fa-chevron-right' %}"></i>
+                    {% trans parent_item.label|capfirst %}
+                </a>
+                {% if parent_item.children %}
+                    <ul class="sub-nav">
+                        {% for child_item in parent_item.children %}
+                            <li{{ child_item.is_active|yesno:' class=active,' }}>
+                                <a href="{{ child_item.url }}"
+                                        {{ child_item.target_blank|yesno:' target=_blank,' }}>{{ child_item.label }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

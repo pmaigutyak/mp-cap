@@ -1,4 +1,3 @@
-
 from modeltranslation.utils import get_translation_fields
 
 

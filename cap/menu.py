@@ -1,13 +1,28 @@
 from copy import deepcopy
 
-try:
-    from django.utils.translation import gettext_lazy as _
-except ImportError:
-    from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
+from django.urls import reverse, NoReverseMatch
+from django.template.base import VariableDoesNotExist
+from django.utils.translation import gettext_lazy as _
+
+
+def get_current_app(request):
+    try:
+        return request.current_app
+    except (VariableDoesNotExist, AttributeError):
+        pass
+    return None
 
 
 class ChildItem(object):
-    def __init__(self, label=None, model=None, url=None, target_blank=False, permissions=None):
+    def __init__(
+        self,
+        label=None,
+        model=None,
+        url=None,
+        target_blank=False,
+        permissions=None,
+    ):
         self.label = label
         self.model = model
         self.url = url
@@ -19,18 +34,28 @@ class ChildItem(object):
         self._url_name = None
 
     def _key(self):
-        if self._parent_item and self.model and not '.' in self.model:
-            return '.'.join([self._parent_item._key(), self.model])
+        if self._parent_item and self.model and not "." in self.model:
+            return ".".join([self._parent_item._key(), self.model])
         return self.model
 
 
 class ParentItem(ChildItem):
-    def __init__(self, label=None, app=None, url=None, target_blank=False, permissions=None,
-                 children=None, align_right=False, use_first_child_url=True, icon=None):
-        super(ParentItem, self).__init__(label, None, url, target_blank, permissions)
+    def __init__(
+        self,
+        label=None,
+        app=None,
+        url=None,
+        target_blank=False,
+        permissions=None,
+        children=None,
+        use_first_child_url=True,
+        icon=None,
+    ):
+        super(ParentItem, self).__init__(
+            label, None, url, target_blank, permissions
+        )
         self.user_children = children or []
         self.children = []
-        self.align_right = align_right
         self.icon = icon
         self.app = app
         self.use_first_child_url = use_first_child_url
@@ -41,23 +66,17 @@ class ParentItem(ChildItem):
 
 class MenuManager(object):
     def __init__(self, available_apps, context, request):
-        from .config import get_config_instance, get_current_app
-
         super(MenuManager, self).__init__()
 
-        # Variable available_apps structure:
-        # https://docs.djangoproject.com/en/1.9/ref/contrib/admin/#adminsite-methods
         self.available_apps = available_apps
 
         self.context = context
         self.request = request
         self.current_app = get_current_app(request)
-        self.suit_config = get_config_instance(self.current_app)
-        self.user_menu = self.suit_config.menu
+        self.user_menu = getattr(settings, "ADMIN_MENU", [])
         self.menu_items = None
-        self.aligned_right_menu_items = []
         self.active_parent_item = None
-        self._available_apps = {'apps': {}, 'models': {}}
+        self._available_apps = {"apps": {}, "models": {}}
 
     def __iter__(self):
         for each in self.get_menu_items():
@@ -66,11 +85,6 @@ class MenuManager(object):
     def get_menu_items(self):
         if self.menu_items is None:
             self.menu_items = self.build_menu()
-            if self.suit_config.menu_handler:
-                if not callable(self.suit_config.menu_handler):
-                    raise TypeError('Django Suit "menu_handler" must callable')
-                self.menu_items = self.suit_config.menu_handler(
-                    self.menu_items, self.request, self.context)
 
         return self.menu_items
 
@@ -88,7 +102,9 @@ class MenuManager(object):
             if parent_item.user_children:
                 for child_item in parent_item.user_children:
                     child_item._parent_item = parent_item
-                    native_model = self.find_native_model(native_app, child_item)
+                    native_model = self.find_native_model(
+                        native_app, child_item
+                    )
                     self.handle_child_menu(child_item, native_model)
 
                     # Add allowed children
@@ -104,11 +120,10 @@ class MenuManager(object):
             if not self.parent_item_is_forbidden(parent_item, native_app):
                 menu_items.append(parent_item)
 
-                if parent_item.align_right and self.suit_config.layout == 'horizontal':
-                    self.aligned_right_menu_items.append(parent_item)
-
-        if self.suit_config.menu_show_home:
-            home_item = ParentItem(_('Home'), url='admin:index', icon='fa fa-home')
+        if getattr(settings, "ADMIN_MENU_HOME_ITEM", True):
+            home_item = ParentItem(
+                _("Home"), url="admin:index", icon="fa fa-home"
+            )
             menu_items.insert(0, self.handle_user_url(home_item))
 
         return self.mark_active(menu_items)
@@ -118,30 +133,34 @@ class MenuManager(object):
         Make dictionary of native apps and models for easier matching
         """
         for native_app in self.available_apps:
-            app_key = native_app['app_url'].split('/')[-2]
-            self._available_apps['apps'][app_key] = native_app
-            for native_model in native_app['models']:
-                if 'admin_url' not in native_model:
+            app_key = native_app["app_url"].split("/")[-2]
+            self._available_apps["apps"][app_key] = native_app
+            for native_model in native_app["models"]:
+                if "admin_url" not in native_model:
                     # Can happen with incomplete permissions, like Delete only, etc.
                     continue
-                model_key = '.'.join(native_model['admin_url'].split('/')[-3:-1])
-                native_model['model'] = model_key
-                self._available_apps['models'][model_key] = native_model
-                model_key2 = '.'.join([app_key, native_model['object_name'].lower()])
-                self._available_apps['models'][model_key2] = native_model
+                model_key = ".".join(
+                    native_model["admin_url"].split("/")[-3:-1]
+                )
+                native_model["model"] = model_key
+                self._available_apps["models"][model_key] = native_model
+                model_key2 = ".".join(
+                    [app_key, native_model["object_name"].lower()]
+                )
+                self._available_apps["models"][model_key2] = native_model
 
     def find_native_app(self, parent_item):
         """
         :type parent_item: ParentItem
         """
-        return self._available_apps['apps'].get(parent_item._key())
+        return self._available_apps["apps"].get(parent_item._key())
 
     def find_native_model(self, native_app, child_item):
         """
         :type native_app: dict
         :type child_item: ChildItem
         """
-        return self._available_apps['models'].get(child_item._key())
+        return self._available_apps["models"].get(child_item._key())
 
     def build_menu_by_available_apps(self):
         menu_items = []
@@ -157,7 +176,7 @@ class MenuManager(object):
         """
         :type native_app: dict
         """
-        parent_item = ParentItem(native_app['name'], url=native_app['app_url'])
+        parent_item = ParentItem(native_app["name"], url=native_app["app_url"])
         return parent_item
 
     def make_children_from_native_app(self, parent_item, native_app):
@@ -165,7 +184,7 @@ class MenuManager(object):
         :type parent_item: ParentItem
         :type native_app: dict
         """
-        for native_model in native_app['models']:
+        for native_model in native_app["models"]:
             child_item = self.make_child_from_native_model(native_model)
             parent_item.children.append(child_item)
             child_item._parent_item = parent_item
@@ -174,7 +193,11 @@ class MenuManager(object):
         """
         :type native_model: dict
         """
-        child_item = ChildItem(native_model['name'],  model=native_model.get('model'), url=native_model['admin_url'])
+        child_item = ChildItem(
+            native_model["name"],
+            model=native_model.get("model"),
+            url=native_model["admin_url"],
+        )
         return child_item
 
     def handle_parent_menu(self, parent_item, native_app):
@@ -183,12 +206,14 @@ class MenuManager(object):
         :type native_app: dict
         """
         if not parent_item.label:
-            parent_item.label = native_app['name'] if native_app else 'Untitled'
+            parent_item.label = (
+                native_app["name"] if native_app else "Untitled"
+            )
         if not parent_item.url:
             if parent_item.children and parent_item.use_first_child_url:
                 parent_item.url = parent_item.children[0].url
             elif native_app:
-                parent_item.url = native_app['app_url']
+                parent_item.url = native_app["app_url"]
         else:
             self.handle_user_url(parent_item)
 
@@ -203,16 +228,18 @@ class MenuManager(object):
 
         # Handle label
         if not child_item.label:
-            child_item.label = native_model['name'] if native_model else 'Untitled'
+            child_item.label = (
+                native_model["name"] if native_model else "Untitled"
+            )
 
         # Handle URL
         if not child_item.url:
             if native_model:
-                child_item.url = native_model['admin_url']
+                child_item.url = native_model["admin_url"]
         else:
             self.handle_user_url(child_item)
         if not child_item.url:
-            child_item.url = '#not-found'
+            child_item.url = "#not-found"
 
     def handle_user_url(self, menu_item):
         """
@@ -222,14 +249,13 @@ class MenuManager(object):
         if callable(menu_item.url):
             menu_item.url = menu_item.url(self.request, self.context)
             return menu_item
-        if '/' in menu_item.url:
+        if "/" in menu_item.url:
             return menu_item
+
         try:
-            from django.urls import reverse, NoReverseMatch
-        except:
-            from django.core.urlresolvers import reverse, NoReverseMatch
-        try:
-            menu_item.url = reverse(menu_item.url, current_app=self.current_app)
+            menu_item.url = reverse(
+                menu_item.url, current_app=self.current_app
+            )
             menu_item._url_name = menu_item.url
         except NoReverseMatch:
             pass
@@ -261,8 +287,9 @@ class MenuManager(object):
         """
         :type menu_item: ChildItem or ParentItem
         """
-        if menu_item.permissions and \
-                not self.user_has_permission(menu_item.permissions):
+        if menu_item.permissions and not self.user_has_permission(
+            menu_item.permissions
+        ):
             menu_item._is_forbidden = True
             return True
 
@@ -275,8 +302,8 @@ class MenuManager(object):
         active_parent, active_parent_by_url = None, None
 
         # Represents: %s.%s % (opts.app_label, opts.app_model_name)
-        opts_key = str(self.context.get('opts'))
-        url_name = self.context.get('url_name')
+        opts_key = str(self.context.get("opts"))
+        url_name = self.context.get("url_name")
 
         request_path = str(self.request.path)
 
@@ -286,14 +313,21 @@ class MenuManager(object):
                     if opts_key == child_item._key():
                         active_child = child_item
                         break
-                    elif not active_child_by_url and request_path == child_item.url:
+                    elif (
+                        not active_child_by_url
+                        and request_path == child_item.url
+                    ):
                         active_child_by_url = child_item
 
             if active_child:
                 break
 
             if not active_parent:
-                if url_name and url_name == parent_item._url_name or request_path == parent_item.url:
+                if (
+                    url_name
+                    and url_name == parent_item._url_name
+                    or request_path == parent_item.url
+                ):
                     active_parent = parent_item
 
         if not active_child:

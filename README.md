@@ -3,9 +3,8 @@
 * add rows to `INSTALLED_APPS`
 ```python
 INSTALLED_APPS = [
-    'cap',
-    'cap.configs.SuitConfig',
-    'django.contrib.admin.apps.SimpleAdminConfig',
+    "cap",
+    "django.contrib.admin.apps.SimpleAdminConfig",
     ...
 ]
 ```
