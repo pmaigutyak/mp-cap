@@ -1,0 +1,97 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-24 09:27+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+#: cap/actions.py:32
+msgid "Changes saved"
+msgstr "Зміни збережено"
+
+#: cap/filters.py:24
+msgid "Is present"
+msgstr "Пристутній"
+
+#: cap/filters.py:25
+msgid "Is Null"
+msgstr "Чи порожній"
+
+#: cap/filters.py:40
+msgid "All"
+msgstr "Всі"
+
+#: cap/menu.py:125
+msgid "Home"
+msgstr "Головна"
+
+#: cap/templates/admin/base_site.html:7
+msgid "Django site admin"
+msgstr "Адміністрування сайту"
+
+#: cap/templates/admin/change_list.html:9
+msgid "Filter"
+msgstr "Фільтр"
+
+#: cap/templates/admin/change_list.html:17
+msgid "Hide counts"
+msgstr "Приховати кількість"
+
+#: cap/templates/admin/change_list.html:21
+msgid "Show counts"
+msgstr "Показати кількість"
+
+#: cap/templates/admin/change_list.html:28
+msgid "Clear all filters"
+msgstr "Очистити всі фільтри"
+
+#: cap/templates/admin/index.html:28
+msgid "Recent actions"
+msgstr "Останні дії"
+
+#: cap/templates/admin/index.html:31
+msgid "My actions"
+msgstr "Мої дії"
+
+#: cap/templates/admin/index.html:37
+msgid "None available"
+msgstr "Немає доступних"
+
+#: cap/templates/admin/index.html:51
+msgid "Added:"
+msgstr "Додано:"
+
+#: cap/templates/admin/index.html:53
+msgid "Changed:"
+msgstr "Змінено:"
+
+#: cap/templates/admin/index.html:55
+msgid "Deleted:"
+msgstr "Видалено:"
+
+#: cap/templates/admin/index.html:71
+msgid "Unknown content"
+msgstr "Невідомий вміст"
+
+#: cap/templates/admin/nav_sidebar.html:4
+msgid "Toggle navigation"
+msgstr "Перемкнути навігацію"
+
+#: cap/templates/admin/nav_sidebar.html:8
+msgid "Sidebar"
+msgstr "Сайдбар"

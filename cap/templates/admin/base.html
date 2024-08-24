@@ -1,22 +1,30 @@
-
 {% extends 'admin/base.html' %}
 
 {% load i18n %}
 
-
 {% block extrahead %}
     {% block css %}
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="{{ STATIC_URL }}cap/components/bootstrap/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}cap/components/jquery-ui/jquery-ui.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}cap/components/font-awesome/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}cap/components/qtip2/jquery.qtip.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}cap/components/fancybox/jquery.fancybox.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}cap/components/bootstrap-treeview/bootstrap-treeview.min.css">
-        <link rel="stylesheet" href="{{ STATIC_URL }}cap/components/bootstrap-tagsinput/bootstrap-tagsinput.css">
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900'
+              rel='stylesheet'
+              type='text/css'>
+        <link rel="stylesheet"
+              href="{{ STATIC_URL }}cap/components/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet"
+              href="{{ STATIC_URL }}cap/components/jquery-ui/jquery-ui.min.css">
+        <link rel="stylesheet"
+              href="{{ STATIC_URL }}cap/components/font-awesome/font-awesome.min.css">
+        <link rel="stylesheet"
+              href="{{ STATIC_URL }}cap/components/qtip2/jquery.qtip.min.css">
+        <link rel="stylesheet"
+              href="{{ STATIC_URL }}cap/components/fancybox/jquery.fancybox.min.css">
+        <link rel="stylesheet"
+              href="{{ STATIC_URL }}cap/components/bootstrap-treeview/bootstrap-treeview.min.css">
+        <link rel="stylesheet"
+              href="{{ STATIC_URL }}cap/components/bootstrap-tagsinput/bootstrap-tagsinput.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}cap/css/common.css">
         <link rel="stylesheet" href="{{ STATIC_URL }}cap/css/custom.css">
     {% endblock %}
+
     <script>
         lang_code = '{{ LANGUAGE_CODE }}';
         csrf='{{ csrf_token }}';
@@ -24,8 +32,8 @@
     <link rel="shortcut icon" href="{{ STATIC_URL }}cap/img/favicon.ico">
 {% endblock %}
 
-
 {% block footer %}
+
     {% block js %}
         <script src="{{ STATIC_URL }}cap/components/jquery.min.js"></script>
         <script src="{{ STATIC_URL }}cap/components/jquery.form.min.js"></script>
@@ -39,7 +47,6 @@
         <script src="{{ STATIC_URL }}jquery/ajax-csrf.js"></script>
         <script src="{{ STATIC_URL }}cap/components/jquery-ui/jquery-ui.min.js"></script>
         <script src="{{ STATIC_URL }}cap/components/jquery-ui/i18n/{{ LANGUAGE_CODE }}.js"></script>
-
         <script>
             $(function() {
                 $("[data-role=datepicker]").datepicker({
@@ -48,5 +55,6 @@
             });
         </script>
     {% endblock %}
+
     {{ block.super }}
 {% endblock %}

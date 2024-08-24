@@ -164,3 +164,7 @@ h2 {
     display: block;
     font-size: 12px;
 }
+
+#changelist-filter-extra-actions {
+    padding-left: 10px;
+}
