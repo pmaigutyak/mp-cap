@@ -13,7 +13,6 @@ INSTALLED_APPS = [
 from django.contrib import admin
 
 admin.autodiscover()
-admin.site.enable_nav_sidebar = False
 
 urlpatterns = [  # or i18n_patterns
     path('admin/', admin.site.urls),
