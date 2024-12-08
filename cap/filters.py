@@ -10,14 +10,11 @@ class InputFilter(SimpleListFilter):
         return ((),)
 
     def choices(self, changelist):
-        # Grab only the "all" option.
-        all_choice = next(super().choices(changelist))
-        all_choice["query_parts"] = (
-            (k, v)
-            for k, v in changelist.get_filters_params().items()
-            if k != self.parameter_name
-        )
-        yield all_choice
+        yield {
+            'selected': self.value() is not None,
+            'query_string': changelist.get_query_string({}, [self.parameter_name]),
+            'parameter_name': self.parameter_name,
+        }
 
 
 class IsNullFieldListFilter(FieldListFilter):
