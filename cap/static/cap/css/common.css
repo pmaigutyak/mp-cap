@@ -168,3 +168,19 @@ h2 {
 #changelist-filter-extra-actions {
     padding-left: 10px;
 }
+
+.js-inline-admin-formset .field-name input {
+  width: 100%;
+}
+
+.js-inline-admin-formset td.delete {
+  width: 100px;
+}
+
+tr:nth-child(odd) {
+    background-color: #d8d8d8;
+}
+
+#changelist tbody tr:has(.action-select:checked):nth-child(odd) {
+    background-color: #ecb866;
+}
