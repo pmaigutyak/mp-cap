@@ -134,7 +134,19 @@ h2 {
     color: #fff;
     border-bottom: solid 1px #485365;
     padding: 15px 20px;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebar-nav .nav-expand-arrow {
+    margin-left: auto;
+    font-size: 12px;
+    transition: transform 0.15s ease;
+}
+
+.sidebar-nav .nav-item.expanded .nav-expand-arrow {
+    transform: rotate(90deg);
 }
 
 .sidebar-nav .nav-item .nav-link.active {
@@ -150,8 +162,13 @@ h2 {
     text-decoration: none;
 }
 
-.sidebar-nav .sub-nav {
+.sidebar-nav .nav-item.has-children .sub-nav {
+    display: none;
     padding: 0;
+}
+
+.sidebar-nav .nav-item.has-children.expanded .sub-nav {
+    display: block;
 }
 
 .sidebar-nav .sub-nav li {

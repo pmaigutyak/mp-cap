@@ -12,13 +12,20 @@
     {% get_cap_menu request as menu %}
     <ul class="sidebar-nav">
         {% for parent_item in menu.get_menu_items %}
-            <li class="nav-item {{ parent_item.children|yesno:' has-children,' }}">
-                <a class="nav-link {{ parent_item.is_active|yesno:'active,' }}" href="{{ parent_item.url }}" {{ parent_item.target_blank|yesno:'target=_blank,' }}>
+            <li class="nav-item{% if parent_item.children %} has-children{% endif %}{% if parent_item.is_active %} expanded{% endif %}">
+                <a class="nav-link {{ parent_item.is_active|yesno:'active,' }}"
+                   href="{{ parent_item.url }}"
+                   {{ parent_item.target_blank|yesno:'target=_blank,' }}
+                   {% if parent_item.children %}aria-expanded="{{ parent_item.is_active|yesno:'true,false' }}"{% endif %}>
                     <i class="{% firstof parent_item.icon 'fa fa-chevron-right' %}"></i>
                     {% trans parent_item.label|capfirst %}
+                    {% if parent_item.children %}
+                        <i class="nav-expand-arrow fa fa-chevron-right"
+                           aria-hidden="true"></i>
+                    {% endif %}
                 </a>
                 {% if parent_item.children %}
-                    <ul class="sub-nav">
+                    <ul class="sub-nav"{% if not parent_item.is_active %} hidden{% endif %}>
                         {% for child_item in parent_item.children %}
                             <li {{ child_item.is_active|yesno:' class=active,' }}>
                                 <a href="{{ child_item.url }}" {{ child_item.target_blank|yesno:' target=_blank,' }}>{{ child_item.label }}</a>
@@ -30,3 +37,25 @@
         {% endfor %}
     </ul>
 </nav>
+<script>
+    (function() {
+        var sidebar = document.getElementById('nav-sidebar');
+        if (!sidebar) {
+            return;
+        }
+        sidebar.addEventListener('click', function(event) {
+            var link = event.target.closest('.nav-item.has-children > .nav-link');
+            if (!link || !sidebar.contains(link)) {
+                return;
+            }
+            event.preventDefault();
+            var item = link.parentElement;
+            var subNav = item.querySelector('.sub-nav');
+            var expanded = item.classList.toggle('expanded');
+            link.setAttribute('aria-expanded', expanded);
+            if (subNav) {
+                subNav.hidden = !expanded;
+            }
+        });
+    })();
+</script>
